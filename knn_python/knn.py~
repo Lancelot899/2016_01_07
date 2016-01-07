@@ -1,0 +1,33 @@
+#!/usr/bin/python
+#coding = utf-8
+
+from numpy import *
+def file2matrix(filename):
+    fr = open(filename)
+    arrayOfLines = fr.readlines()
+    numberOfLines = len(arrayOfLines)
+    returnMat = zeros((numberOfLines, 13))
+    classLabelVector = []
+    index = 0
+    for line in arrayOfLines:
+        listFrmLine = line.split(',')
+        returnMat[index,:] = listFrmLine[1 : 14]
+        classLabelVector.append(int(listFrmLine[0]))
+        ++index
+    return returnMat,classLabelVector
+
+import matplotlib
+import matplotlib.pyplot as plt
+
+def plot(DataMat):
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+    ax.scatter(DataMat[:,1], DataMat[:,2])
+    plt.show()
+    return
+
+
+if __name__ == '__main__':
+    returnMat, classLabelVector = file2matrix('./data.txt')
+    print classLabelVector
+    plot(returnMat)
